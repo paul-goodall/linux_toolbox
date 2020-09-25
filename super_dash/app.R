@@ -2,33 +2,31 @@
 library(shinydashboard)
 
 ui <- dashboardPage(
+    
     dashboardHeader(title = "Goodsy Super-dash"),
+    
+    
     ## Sidebar content
     dashboardSidebar(
+        tags$head(
+            tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
+        ),
         sidebarMenu(
-            menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-            menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+            menuItem("My Apps",     tabName = "my_apps",     icon = icon("app-store")),
+            menuItem("GLE",         tabName = "gle",         icon = icon("paint-brush")),
+            menuItem("ImageMagick", tabName = "imagemagick", icon = icon("hat-wizard")),
+            menuItem("FFMPEG",      tabName = "ffmpeg",      icon = icon("file-video")),
+            menuItem("Linux Tools", tabName = "linux_tools", icon = icon("linux"))
         )
     ),
     ## Body content
     dashboardBody(
         tabItems(
-            # First tab content
-            tabItem(tabName = "dashboard",
-                    fluidRow(
-                        box(plotOutput("plot1", height = 250)),
-                        
-                        box(
-                            title = "Controls",
-                            sliderInput("slider", "Number of observations:", 1, 100, 50)
-                        )
-                    )
-            ),
-            
-            # Second tab content
-            tabItem(tabName = "widgets",
-                    h2("Widgets tab content")
-            )
+            tabItem(tabName = "my_apps",     source("tabs/my_apps.R",     local=TRUE)$value),
+            tabItem(tabName = "gle",         source("tabs/gle.R",         local=TRUE)$value),
+            tabItem(tabName = "imagemagick", source("tabs/imagemagick.R", local=TRUE)$value),
+            tabItem(tabName = "ffmpeg",      source("tabs/ffmpeg.R",      local=TRUE)$value),
+            tabItem(tabName = "linux_tools", source("tabs/linux_tools.R", local=TRUE)$value)
         )
     )
 )

@@ -9,14 +9,16 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install
   libjpeg-dev \
   ghostscript-x \
   imagemagick \
+  ffmpeg \
   gle-graphics
   
 RUN su - -c "R -e \"install.packages(c('shinydashboard'), repos='http://cran.rstudio.com/')\""  
 
 COPY setup_docs/shiny-server.conf /etc/shiny-server/.
 
+WORKDIR /home/rstudio
 RUN git clone https://github.com/paul-goodall/linux_toolbox.git
-RUN ln -s /srv/shiny-server/super_dash /home/rstudio/linux_toolbox/super_dash
+RUN sudo ln -s /home/rstudio/linux_toolbox/super_dash /srv/shiny-server/super_dash
 RUN ln -s /srv/shiny-server/examples /home/rstudio/shiny_examples
 RUN chmod -R 777 /srv/shiny-server/*
 
