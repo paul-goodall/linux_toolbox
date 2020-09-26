@@ -24,5 +24,5 @@ RUN export ADD=shiny && bash /etc/cont-init.d/add
 # Expose the ports we need to get started:
 EXPOSE 8787 3838
 
-CMD ["/home/rstudio/start_up_commands.sh"]
+CMD bash -C '/home/rstudio/start_up_commands.sh';'bash'
 
