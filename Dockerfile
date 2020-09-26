@@ -16,7 +16,7 @@ RUN su - -c "R -e \"install.packages(c('shinydashboard'), repos='http://cran.rst
 
 COPY setup_docs/shiny-server.conf /etc/shiny-server/.
 
-COPY setup_docs/start_up_commands.sh /home/rstudio/.
+RUN wget https://raw.githubusercontent.com/paul-goodall/linux_toolbox/master/setup_docs/start_up_commands.sh -O /home/rstudio/start_up_commands.sh
 RUN chmod 777 /home/rstudio/start_up_commands.sh
 
 RUN export ADD=shiny && bash /etc/cont-init.d/add
@@ -24,5 +24,5 @@ RUN export ADD=shiny && bash /etc/cont-init.d/add
 # Expose the ports we need to get started:
 EXPOSE 8787 3838
 
-CMD ["/bin/bash /home/rstudio/start_up_commands.sh"]
+CMD ["/home/rstudio/start_up_commands.sh"]
 
